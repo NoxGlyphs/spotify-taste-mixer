@@ -1,3 +1,13 @@
+import axios from "axios";
+
+/* -------------------------------------------------- */
+
+export async function spotifySecureFetch(params) {
+  
+}
+
+/* -------------------------------------------------- */
+
 export async function generatePlaylist(preferences) {
   const { artists, genres, decades, popularity } = preferences;
   const token = getAccessToken();

@@ -23,14 +23,15 @@ export default function DashboardPage(){
     // ademas token si o si es ref y la funcione del fetch misma es la que debe asegurarse de pedir el token
     // de nuevo si no funciona y solo dar el error al cliente si es del todo imposible el fetch
     const spotifyAPIFetch = async (url) => {
-        if (!token){
+        
+        if (!token.current){
             console.log("No token available")
             return
         }
         
         const response = await axios.get(
             url,
-            { headers: { Authorization: `Bearer ${token}` } }
+            { headers: { Authorization: `Bearer ${token.current}` } }
         )   
         return response
     }
