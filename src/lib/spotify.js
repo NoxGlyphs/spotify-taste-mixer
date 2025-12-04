@@ -1,9 +1,58 @@
 import axios from "axios";
+import { getAccessToken, refreshAccessToken } from "./auth";
 
 /* -------------------------------------------------- */
 
-export async function spotifySecureFetch(params) {
-  
+export async function spotifySecureFetch(endpoint, options = {}) {
+  let token = getAccessToken(); 
+
+  if (!token) {
+    token = await refreshAccessToken();
+    if (!token) throw new Error("No access token available");
+  }
+
+  if( endpoint.startsWith("http")) {
+    if( !endpoint.includes("https://api.spotify.com/v1")) {
+      throw new Error("Invalid Spotify API endpoint, must start with https://api.spotify.com/v1. Use just axios for other URLs.");
+    }
+  }else if( endpoint.startsWith("/") ) {
+    endpoint = "https://api.spotify.com/v1" + endpoint
+  }else{
+    endpoint = "https://api.spotify.com/v1/" + endpoint
+  }
+
+  try {
+    const res = await axios({
+      url: endpoint,
+      method: options.method || "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      params: options.params,
+      data: options.data
+    });
+
+    return res.data;
+
+  } catch {
+    const newToken = await refreshAccessToken();
+    if (!newToken) throw new Error("Unable to refresh token");
+
+    const retry = await axios({
+      url: `https://api.spotify.com/v1${endpoint}`,
+      method: options.method || "GET",
+      headers: {
+        Authorization: `Bearer ${newToken}`,
+        "Content-Type": "application/json",
+      },
+      params: options.params,
+      data: options.data
+    });
+    
+    return retry.data;
+  }
+
 }
 
 /* -------------------------------------------------- */

@@ -72,3 +72,24 @@ export function logout() {
   localStorage.removeItem('spotify_refresh_token');
   localStorage.removeItem('spotify_token_expiration');
 }
+
+// refrescar token
+export async function refreshAccessToken() {
+  const refreshToken = localStorage.getItem("spotify_refresh_token")
+  if (!refreshToken) throw new Error("No refresh token available in localStorage");
+
+  const res = await fetch("/api/refresh-token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ refresh_token: refreshToken }),
+  });
+
+  if (!res.ok) throw new Error("Failed to refresh access token");  
+  
+
+  const data = await res.json();
+
+  saveTokens(data.access_token, refreshToken, data.expires_in);
+
+  return data.access_token;
+}
