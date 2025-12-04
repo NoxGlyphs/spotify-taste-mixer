@@ -20,9 +20,7 @@ export default function ArtistWidget(){
         setArtists(userTop.items)
         console.log(userTop.items, "USER TOP ARTISTS")
       } else {
-        // 2️⃣ Si no hay top artists, usar Top 50 Global
         const playlistLink = await spotifySecureFetch(`https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFz6FAsUtgAab`)
-        // Extraer artistas únicos de los tracks
         const playlist = await spotifySecureFetch(playlistLink.href)
         console.log(playlist, "TOP 50 GLOBAL ARTISTS")
       }
