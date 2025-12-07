@@ -21,6 +21,7 @@ export default function Searchbar({ onSearch }) {
                 name="searchInput"
                 onFocus={() => setIsActive(true)}
                 onBlur={() => setIsActive(false)}
+                onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search for artists, songs, or albums"
                 required
             />
