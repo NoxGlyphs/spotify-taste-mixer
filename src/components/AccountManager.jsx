@@ -13,14 +13,8 @@ export default function AccountManager() {
 
   useEffect(() => {
     async function fetchProfile() {
-      try {
-        const data = await spotifySecureFetch("/me");
-        console.log(data, "USER PROFILE");
-        console.log(data.images[1].url)
-        setProfile(data);
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-      }
+      const data = await spotifySecureFetch("/me");
+      setProfile(data);
     }
     fetchProfile();
   }, []);

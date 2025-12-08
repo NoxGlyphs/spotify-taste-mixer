@@ -1,6 +1,7 @@
 "use client"
 import { spotifySecureFetch } from "@/lib/spotify"
 import { useState, useEffect } from "react"
+import ArtistCard from "../ArtistCard"
 
 const TOP_50_GLOBAL_PLAYLIST_ID = "37i9dQZEVXbMDoHDwVN2tF";
 
@@ -11,19 +12,14 @@ export default function ArtistWidget(){
 
   async function loadArtists() {
     setLoading(true)
-    const res = await spotifySecureFetch("/me/top/artists?limit=10&offset=0")
-    console.log(res, "ARTISTS")
-    // setArtists(data.artists)
-    const userTop = await spotifySecureFetch(res.href)
+    const userTop = await spotifySecureFetch("/me/top/artists", { params: { limit: 50, offset: 0 } })
 
-    if (userTop.items && userTop.items.length > 0) {
+    if (userTop.items && userTop.items.length > 9) {
         setArtists(userTop.items)
-        console.log(userTop.items, "USER TOP ARTISTS")
-      } else {
-        const playlistLink = await spotifySecureFetch(`https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFz6FAsUtgAab`)
-        const playlist = await spotifySecureFetch(playlistLink.href)
-        console.log(playlist, "TOP 50 GLOBAL ARTISTS")
-      }
+    } else { // REVISAR ESTO
+      const playlistLink = await spotifySecureFetch(`https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFz6FAsUtgAab`)
+      const playlist = await spotifySecureFetch(playlistLink.href)
+    }
     setLoading(false)
   }
 
@@ -39,7 +35,7 @@ export default function ArtistWidget(){
 
       <div style={{ marginTop: "20px" }}>
         {artists.map(a => (
-          <div key={a.id}>{a.name}</div>
+          <ArtistCard key={a.id} artistData={a}/>
         ))}
       </div>
     </div>

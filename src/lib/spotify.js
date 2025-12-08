@@ -40,7 +40,7 @@ export async function spotifySecureFetch(endpoint, options = {}) {
     if (!newToken) throw new Error("Unable to refresh token");
 
     const retry = await axios({
-      url: `https://api.spotify.com/v1${endpoint}`,
+      url: endpoint,
       method: options.method || "GET",
       headers: {
         Authorization: `Bearer ${newToken}`,

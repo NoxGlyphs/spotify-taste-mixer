@@ -14,16 +14,10 @@ export default function DashboardPage(){
         token.current = localStorage.getItem("spotify_token")
     }, [])
 
-    function handleSearch(query){
-        console.log("Searching for:", query)
-    }
-
     return (
         <main>
             <h1>estoy en dashboard</h1>
             <ArtistWidget />
-            <AccountManager />
-            <Searchbar onSearch={ handleSearch } />
         </main>
     )
 }
