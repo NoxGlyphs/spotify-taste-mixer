@@ -27,7 +27,9 @@ export function getSpotifyAuthUrl() {
     'playlist-read-collaborative',
     'playlist-modify-public',
     'playlist-modify-private',
-    'user-follow-read'
+    'user-follow-read',
+    'user-library-read',
+    'user-library-modify'
   ].join(' ');
 
   const params = new URLSearchParams({

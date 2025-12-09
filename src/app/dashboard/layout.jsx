@@ -6,9 +6,9 @@ import "../globals.css"
 
 export default function DashboardLayout({ children }) {
   return (
-    <div className="flex w-screen h-screen">
+    <div className="flex w-screen h-screen overflow-x-hidden">
       <Sidebar/>
-      <div className="flex-grow">
+      <div className="flex-grow flex flex-col">
         <header className="flex justify-between relative w-full">
           <TitleURL />
           <Searchbar/>
@@ -17,7 +17,7 @@ export default function DashboardLayout({ children }) {
             <p>LOGO</p>
           </div>
         </header>
-        <main>
+        <main className="max-h-max flex-1 overflow-y-auto">
           {children}
         </main>
       </div>

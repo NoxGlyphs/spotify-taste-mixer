@@ -10,7 +10,9 @@ export default function ItemList({ items, emptyMsg, title="" }) {
                 <ul className="flex">
                     {items.map((item) => (
                         <li key={item.id || item.uri}>
-                            <img src={item.images?.[item.images.length - 1]?.url}/>
+                            <img src={item.images?.[0]?.url}
+                                className="w-[160px] h-[160px]"
+                            />
                             <h5>
                                 {item.name || item.title || "Unnamed Item"}
                             </h5>

@@ -8,16 +8,19 @@ export default function Library() {
     const [filter, setFilter] = useState(null) // 'playlists', 'artists' o 'albums'
     const [playlists, setPlaylists] = useState([])
     const [artists, setArtists] = useState([])
+    const [albums, setAlbums] = useState([])
     
     useEffect(() => {
         async function fetchLibrary() {
             const fetchedPlaylists = await spotifySecureFetch('/me/playlists', { params: { limit: 20 } })
-            console.log("Fetched playlists:", fetchedPlaylists)
             setPlaylists(fetchedPlaylists.items)
 
             const fetchedArtists = await spotifySecureFetch('/me/following', { params: { type: 'artist' } })
-            console.log("Fetched artists:", fetchedArtists)
             setArtists(fetchedArtists.artists.items)
+
+            const fetchedAlbums = await spotifySecureFetch('/me/albums', { params: { limit: '20' } })
+            const procesedAlbums =  fetchedAlbums?.items.map(item => item.album)
+            setAlbums(procesedAlbums)
         }
 
         fetchLibrary()
@@ -35,6 +38,11 @@ export default function Library() {
                 title="Artists"
                 items={artists} 
                 emptyMsg={"No artists followed yet"} 
+            />
+            <ItemList 
+                title="Albums"
+                items={albums} 
+                emptyMsg={"No albums saved yet"} 
             />
         </div>
     )
