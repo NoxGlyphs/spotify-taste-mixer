@@ -5,7 +5,7 @@ import AccountManager from "./AccountManager"
 export default function Topbar() {
 
     return (
-        <section className="relative">
+        <section className="relative p-4 flex flex-col h-full w-40 gap-4">
             <h1>Spotify<br/>taste mixer</h1>
             <AccountManager />
             <nav>
@@ -17,7 +17,7 @@ export default function Topbar() {
                         <Link href="/dashboard/library">Library</Link>
                     </li>
                     <li>
-                        <Link href="/dashboard/trending">Trending</Link>
+                        <Link href="/dashboard/taste-mixer">Taste mixer</Link>
                     </li>
                 </ul>
             </nav>

@@ -1,16 +1,27 @@
 import Sidebar from "@/components/Sidebar"
 import Library from "@/components/Library"
+import TitleURL from "@/components/TitleURL"
+import Searchbar from "@/components/Searchbar"
 import "../globals.css"
 
+
 export default function DashboardLayout({ children }) {
-
-
   return (
     <div className="flex w-screen h-screen">
       <Sidebar/>
-      <main className="flex-grow">
-        {children}
-      </main>
+      <div className="flex-grow">
+        <header className="flex justify-between relative w-full">
+          <TitleURL />
+          <Searchbar/>
+          <div className="flex">
+            <p>BOTON MODO OSCURO</p>
+            <p>LOGO</p>
+          </div>
+        </header>
+        <main>
+          {children}
+        </main>
+      </div>
     </div>
   )
 }

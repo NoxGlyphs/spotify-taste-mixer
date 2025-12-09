@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation"
 import { useState, useRef } from "react";
 
-export default function Searchbar() {
+export default function Searchbar({className=""}) {
     const router = useRouter()
     const timeoutRef = useRef(null)
     const [isActive, setIsActive] = useState(false)
@@ -19,7 +19,7 @@ export default function Searchbar() {
 
 
     return (
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={(e) => e.preventDefault()} className={className}>
             <input
                 type="text"
                 name="searchInput"

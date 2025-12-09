@@ -84,11 +84,13 @@ export async function refreshAccessToken() {
     body: JSON.stringify({ refresh_token: refreshToken }),
   });
 
-  if (!res.ok) throw new Error("Failed to refresh access token");  
-  
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error("Failed to refresh access token")
+  } 
 
   const data = await res.json();
-
+  
   saveTokens(data.access_token, refreshToken, data.expires_in);
 
   return data.access_token;
