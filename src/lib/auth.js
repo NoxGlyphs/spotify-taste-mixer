@@ -24,7 +24,8 @@ export function getSpotifyAuthUrl() {
     'user-read-email',
     'user-top-read',
     'playlist-modify-public',
-    'playlist-modify-private'
+    'playlist-modify-private',
+    'user-follow-read'
   ].join(' ');
 
   const params = new URLSearchParams({

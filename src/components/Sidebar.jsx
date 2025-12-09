@@ -21,7 +21,7 @@ export default function Topbar() {
                     </li>
                 </ul>
             </nav>
-            <div className="bottom-0 absolute">
+            <div className="bottom-4 absolute">
                 <p>mp3</p>
                 <p>Reproductor de current song</p>
             </div>

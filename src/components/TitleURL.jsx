@@ -5,8 +5,9 @@ export default function TitleURL() {
     const pathname = usePathname();
     let title = pathname.split("/").pop()
     if (title === "dashboard") title = "Home"
+    title = title.charAt(0).toUpperCase() + title.slice(1).replace("-", " ")
 
     return (
-        <h3>{title.toUpperCase()}</h3>
+        <h3>{title}</h3>
     )
 }
