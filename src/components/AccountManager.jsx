@@ -34,7 +34,6 @@ export default function AccountManager() {
 
   return (
     <div>
-      <h1>Account Manager</h1>
       <button onClick={toggleMenu}>Profile</button>
       <Image
         src={profile?.images?.[1]?.url || "/default-pfp.jpg"}

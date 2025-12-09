@@ -7,16 +7,9 @@ import AccountManager from "@/components/AccountManager"
 import Searchbar from "@/components/Searchbar"
 
 export default function DashboardPage(){
-    const [artists, setArtists] = useState([])
-    const token = useRef(null)
-
-    useEffect(() => {
-        token.current = localStorage.getItem("spotify_token")
-    }, [])
-
     return (
         <main>
-            <h1>estoy en dashboard</h1>
+            <h1>estoy en dashboard landing</h1>
             <ArtistWidget />
         </main>
     )
