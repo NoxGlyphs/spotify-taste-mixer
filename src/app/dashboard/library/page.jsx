@@ -11,8 +11,9 @@ export default function Library() {
     useEffect(() => {
         async function fetchLibrary() {
             const fetchedPlaylists = await spotifySecureFetch('/me/playlists', { params: { limit: 20 } })
+            console.log("Fetched playlists:", fetchedPlaylists)
             const fetchedArtists = await spotifySecureFetch('/me/following', { params: { type: 'artist' } })
-            // console.log("Fetched artists:", fetchedArtists)
+            console.log("Fetched artists:", fetchedArtists)
             setPlaylists(fetchedPlaylists.items)
         }
 

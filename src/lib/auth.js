@@ -23,6 +23,8 @@ export function getSpotifyAuthUrl() {
     'user-read-private',
     'user-read-email',
     'user-top-read',
+    'playlist-read-private',
+    'playlist-read-collaborative',
     'playlist-modify-public',
     'playlist-modify-private',
     'user-follow-read'
