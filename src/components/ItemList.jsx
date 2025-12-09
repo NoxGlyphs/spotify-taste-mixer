@@ -1,15 +1,23 @@
-export default function ItemList({ items, emptyMsg }) {
-    if (!items || items.length === 0) {
-        return <p>{emptyMsg || "No items to display."}</p>;
-    }
+import Image from "next/image"
 
+export default function ItemList({ items, emptyMsg, title="" }) {
     return (
-        <ul>
-            {items.map((item) => (
-                <li key={item.id || item.uri}>
-                    {item.name || item.title || "Unnamed Item"}
-                </li>
-            ))}
-        </ul>
+        <div>
+            {title && <h2>{title}</h2>}
+            {(!items || items.length === 0) ? (
+                <p>{emptyMsg || "No items to display."}</p>
+            ) : (
+                <ul className="flex">
+                    {items.map((item) => (
+                        <li key={item.id || item.uri}>
+                            <img src={item.images?.[item.images.length - 1]?.url}/>
+                            <h5>
+                                {item.name || item.title || "Unnamed Item"}
+                            </h5>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
     );
 }

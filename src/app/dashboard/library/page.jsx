@@ -1,7 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 import { spotifySecureFetch } from "@/lib/spotify"
-// import ItemList from "./ItemList"
+import ItemList from "@/components/ItemList"
+
 
 export default function Library() {
     const [filter, setFilter] = useState(null) // 'playlists', 'artists' o 'albums'
@@ -12,9 +13,11 @@ export default function Library() {
         async function fetchLibrary() {
             const fetchedPlaylists = await spotifySecureFetch('/me/playlists', { params: { limit: 20 } })
             console.log("Fetched playlists:", fetchedPlaylists)
+            setPlaylists(fetchedPlaylists.items)
+
             const fetchedArtists = await spotifySecureFetch('/me/following', { params: { type: 'artist' } })
             console.log("Fetched artists:", fetchedArtists)
-            setPlaylists(fetchedPlaylists.items)
+            setArtists(fetchedArtists.artists.items)
         }
 
         fetchLibrary()
@@ -23,10 +26,16 @@ export default function Library() {
     return (
         <div>
             <h1>Library Component</h1>
-            {/* <ItemList 
-                items={showArtists ? artists : playlists} 
-                emptyMsg={showArtists ? "No artists followed yet" : "No playlists created yet"} 
-            /> */}
+            <ItemList 
+                title="Playlists"
+                items={playlists} 
+                emptyMsg={"No playlists created yet"} 
+            />
+            <ItemList 
+                title="Artists"
+                items={artists} 
+                emptyMsg={"No artists followed yet"} 
+            />
         </div>
     )
 }
