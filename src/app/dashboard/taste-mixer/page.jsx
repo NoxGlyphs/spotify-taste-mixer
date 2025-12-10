@@ -11,45 +11,31 @@ import NewPlaylist from "@/components/NewPlaylist";
 
 export default function TasteMixerPage() {
     const [showFilters, setShowFilters] = useState(true);
-    const [selectedArtists, setSelectedArtists] = useState([]);
-    const [selectedTracks, setSelectedTracks] = useState([]);
-    const [selectedGenres, setSelectedGenres] = useState([]);
-    const [selectedDecades, setSelectedDecades] = useState([]);
-    const [selectedMood, setSelectedMood] = useState([]);
-    const [popularity, setPopularity] = useState([0, 100]);
-
+    const [filters, setFilters] = useState({
+        artists: [],
+        tracks: [],
+        genres: [],
+        decades: [],
+        mood: [],
+        popularity: [0, 100]
+    });
     const [generateLoading, setGenerateLoading] = useState(false);
     const [newPlaylist, setNewPlaylist] = useState(null);
     const [newPlaylistVisible, setNewPlaylistVisible] = useState(false);
 
-    function handleArtistSelect(artists) {
-        setSelectedArtists(artists);
+    function updateFilter(key, value) {
+        setFilters(prev => ({ ...prev, [key]: value }));
     }
-    function handleTrackSelect(tracks) {
-        setSelectedTracks(tracks);
-    }
-    function handleGenreSelect(genres) {
-        setSelectedGenres(genres);
-    }
-    function handleDecadeSelect(decades) {
-        setSelectedDecades(decades);
-    }
-    function handleMoodSelect(moods) {
-        setSelectedMood(moods);
-    }
-    function handlePopularityChange(value) {
-        setPopularity(value);
-    }
+
+    function handleArtistSelect(val) { updateFilter("artists", val); }
+    function handleTrackSelect(val) { updateFilter("tracks", val); }
+    function handleGenreSelect(val) { updateFilter("genres", val); }
+    function handleDecadeSelect(val) { updateFilter("decades", val); }
+    function handleMoodSelect(val) { updateFilter("mood", val); }
+    function handlePopularityChange(val) { updateFilter("popularity", val); }
+
 
     function handleGenerate() {
-        const filters = {
-            artists: selectedArtists,
-            tracks: selectedTracks,
-            genres: selectedGenres,
-            decades: selectedDecades,
-            popularity: popularity,
-        }
-
         setShowFilters(false);
         setNewPlaylistVisible(true);
 
@@ -73,27 +59,27 @@ export default function TasteMixerPage() {
                 <div>
                     <ArtistWidget
                         onSelect={handleArtistSelect}
-                        selectedItems={selectedArtists}
+                        selectedItems={filters.artists}
                     />
                     <TrackWidget
                         onSelect={handleTrackSelect}
-                        selectedItems={selectedTracks}
+                        selectedItems={filters.tracks}
                     />
                     <GenreWidget
                         onSelect={handleGenreSelect}
-                        selectedItems={selectedGenres}
+                        selectedItems={filters.genres}
                     />
                     <DecadeWidget
                         onSelect={handleDecadeSelect}
-                        selectedItems={selectedDecades}
+                        selectedItems={filters.decades}
                     />
                     <MoodWidget
                         onSelect={handleMoodSelect}
-                        selectedItems={selectedMood}
+                        selectedItems={filters.mood}
                     />
                     <PopularityWidget
                         onChange={handlePopularityChange}
-                        value={popularity}
+                        value={filters.popularity}
                     />
                 </div>
             </div>
