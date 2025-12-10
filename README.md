@@ -1,6 +1,4 @@
-# TODO 
-
-page notfound
+Lo del suspense al final creo que no hay que usarlo porque no es como que quieras usar otra parte de la web mientras carga algo, porque cada pagina es solo una cosa realmente
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

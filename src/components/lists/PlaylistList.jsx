@@ -17,7 +17,7 @@ export default function PlaylistList({ items }) {
                             onClick={() => {router.push(`/dashboard/playlist/${item.id}`)}}
                         >
                             <img src={item.images?.[0]?.url}
-                                className="w-40 h-40 rounded-xl border-1 border-[rgb(var(--color-border))] mb-1 object-cover shadow-sm/30"
+                                className="w-40 h-40 rounded-xl border border-[rgb(var(--color-border))] mb-1 object-cover shadow-sm/30"
                             />
                             <h5 className="font-semibold  truncate">
                                 {item.name || item.title || "Unnamed Item"}

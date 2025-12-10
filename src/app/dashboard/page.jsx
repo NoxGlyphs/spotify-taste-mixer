@@ -15,12 +15,10 @@ export default function HomePage() {
       try {
         setLoading(true)
         
-        // Obtener top artistas de todo el tiempo
         const artists = await spotifySecureFetch("/me/top/artists", {
           params: { limit: 10, time_range: "long_term" }
         })
         
-        // Obtener top canciones de todo el tiempo
         const tracks = await spotifySecureFetch("/me/top/tracks", {
           params: { limit: 20, time_range: "long_term" }
         })
@@ -38,7 +36,7 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-[400px] w-full">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500"></div>
       </div>
     )
@@ -46,7 +44,6 @@ export default function HomePage() {
 
   return (
     <section className="space-y-10 pr-4">
-      {/* Top Artists */}
       <div>
         <h2 className="text-3xl font-bold mb-6">Your Top Artists</h2>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-x-10 gap-y-6 pr-4">
@@ -59,7 +56,7 @@ export default function HomePage() {
               <img
                 src={artist.images?.[0]?.url || "/default-pfp.jpg"}
                 alt={artist.name}
-                className="w-40 h-40 rounded-full border-1 border-[rgb(var(--color-border))] mb-1 object-cover shadow-sm/30"
+                className="w-40 h-40 rounded-full border border-[rgb(var(--color-border))] mb-1 object-cover shadow-sm/30"
               />
               <h5 className="font-semibold truncate">{artist.name}</h5>
               <span className="text-[rgb(var(--color-fg),0.4)] text-sm">
@@ -70,7 +67,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Top Tracks */}
       <div>
         <h2 className="text-3xl font-bold mb-6">Your Top Tracks</h2>
         <TrackList tracks={topTracks} numerated={true} />

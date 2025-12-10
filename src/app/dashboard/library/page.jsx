@@ -35,7 +35,7 @@ export default function Library() {
 
     return (
         <div>
-            <div className=" mt-2 mb-6 flex w-fit rounded-4xl p-1 px-1 gap-2 border-1 border-[rgb(var(--color-border))] bg-[rgba(var(--color-border),0.15)]  inset-shadow-sm/30">
+            <div className=" mt-2 mb-6 flex w-fit rounded-4xl p-1 px-1 gap-2 border border-[rgb(var(--color-border))] bg-[rgba(var(--color-border),0.15)]  inset-shadow-sm/30">
                 <button onClick={()=>setFilter(true)} className={` px-2  p-1 text-[rgba(var(--color-fg),0.7)] transition duration-300 rounded-4xl ${filter ? activeStyle : ""}`}>My playlists</button>
                 <button onClick={()=>setFilter(false)} className={`px-2  p-1 text-[rgba(var(--color-fg),0.7)] transition duration-300 rounded-4xl ${filter ? "" : activeStyle} `}>Followed</button>
             </div>
