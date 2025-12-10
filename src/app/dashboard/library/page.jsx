@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import { spotifySecureFetch } from "@/lib/spotify"
 import PlaylistList from "@/components/lists/PlaylistList"
 
+const activeStyle= "shadow-sm/30 outline-1 outline-[rgb(var(--color-border))] bg-[rgba(var(--color-bg),0.8)] text-[rgba(var(--color-fg),1)]"
 
 export default function Library() {
     const [filter, setFilter] = useState(true) // true for owned, false for followed
@@ -34,9 +35,9 @@ export default function Library() {
 
     return (
         <div>
-            <div className="flex gap-4">
-                <button onClick={()=>setFilter(true)}>My playlists</button>
-                <button onClick={()=>setFilter(false)}>Followed</button>
+            <div className=" mt-2 mb-6 flex w-fit rounded-4xl p-1 px-1 gap-2 border-1 border-[rgb(var(--color-border))] bg-[rgba(var(--color-border),0.15)]  inset-shadow-sm/30">
+                <button onClick={()=>setFilter(true)} className={` px-2  p-1 text-[rgba(var(--color-fg),0.7)] transition duration-300 rounded-4xl ${filter ? activeStyle : ""}`}>My playlists</button>
+                <button onClick={()=>setFilter(false)} className={`px-2  p-1 text-[rgba(var(--color-fg),0.7)] transition duration-300 rounded-4xl ${filter ? "" : activeStyle} `}>Followed</button>
             </div>
             <PlaylistList items={filter ? ownedPlaylists : followedPlaylists} />
         </div>

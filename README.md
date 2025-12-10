@@ -5,6 +5,12 @@ hacer ctrl shift f DEFAULT y poner las fotos defaults en public
 
 que cuando le das a generar de nuevo haga un playlist distinta
 
+logout
+
+page notfound
+
+pagina de inicio
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

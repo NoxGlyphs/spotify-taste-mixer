@@ -1,12 +1,15 @@
 "use client";
 import { spotifySecureFetch } from "@/lib/spotify";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import CollapseArrow from "../CollapseArrow";
 
 export default function ArtistWidget({ onSelect, selectedItems = [] }) {
   const [query, setQuery] = useState("");
   const [artists, setArtists] = useState([]);
   const [loading, setLoading] = useState(false);
   const [focused, setFocused] = useState(false);
+
+  const resultsRef = useRef(null);
 
   useEffect(() => {
     if (!query) return 
@@ -31,55 +34,58 @@ export default function ArtistWidget({ onSelect, selectedItems = [] }) {
   return (
     <div>
       <div className="flex">
-        <input
-          type="text"
-          placeholder="Search artists..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          onFocus={() => setFocused(true)}
-          className="border p-2 w-full mb-2"
-        />
-        <span onClick={() => setFocused(!focused)}>v</span>
+        <CollapseArrow collapseRef={resultsRef} />
+        <h5 className="font-semibold pb-1">Select up to 5 artist</h5>
       </div>
 
-      {focused && (loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="grid grid-cols-2 gap-2">
-          {artists.map(artist => (
+      <div className="ml-6">
+        <input
+            type="text"
+            placeholder="Search artists..."
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            onFocus={() => setFocused(true)}
+            className="border p-2 w-full mb-2 rounded-full px-6"
+          />
+
+        {focused && (loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div ref={resultsRef} className="grid grid-cols-2 gap-2 overflow-hidden transition-max-height duration-300 ease-in-out">
+            {artists.map(artist => (
+              <div
+                key={artist.id}
+                className={`p-2 cursor-pointer border-2 rounded flex items-center gap-2 ${
+                  selectedItems.some(a => a.id === artist.id) ? "bg-blue-200" : ""
+                }`}
+                onClick={() => handleClick(artist)}
+              >
+                {artist.images?.[0]?.url && (
+                  <img src={artist.images[0].url} className="w-12 h-12 object-cover rounded-full border border-[rgb(var(--color-border))]" />
+                )}
+                <span className="font-semibold">{artist.name}</span>
+              </div>
+            ))}
+            <div className="py-2"/>
+          </div>
+        ))}
+
+        <div className="flex">
+          {selectedItems.map(artist => (
             <div
               key={artist.id}
-              className={`p-2 cursor-pointer border rounded flex items-center gap-2 ${
-                selectedItems.some(a => a.id === artist.id) ? "bg-blue-200" : ""
-              }`}
-              onClick={() => handleClick(artist)}
+              className={`p-2 flex flex-col justify-center text-center items-center gap pl-6 pr-10`}
             >
               {artist.images?.[0]?.url && (
-                <img src={artist.images[0].url} className="w-12 h-12 object-cover rounded" />
+                <img src={artist.images[0].url} className="w-24 h-24 object-cover rounded-full" />
               )}
-              <span>{artist.name}</span>
+              <span className="mt-2 font-semibold">{artist.name}</span>
+              <span onClick={() => handleClick(artist)}
+              className="text-sm text-[rgba(var(--color-fg),0.3)] cursor-pointer">Remove</span>
             </div>
           ))}
         </div>
-      ))}
-
-      <div className="grid grid-cols-2 gap-2">
-        {selectedItems.map(artist => (
-          <div
-            key={artist.id}
-            className={`p-2 cursor-pointer border rounded flex items-center gap-2 ${
-              selectedItems.some(a => a.id === artist.id) ? "bg-blue-200" : ""
-            }`}
-            onClick={() => handleClick(artist)}
-          >
-            {artist.images?.[0]?.url && (
-              <img src={artist.images[0].url} className="w-12 h-12 object-cover rounded" />
-            )}
-            <span>{artist.name}</span>
-          </div>
-        ))}
       </div>
-
     </div>
   );
 }

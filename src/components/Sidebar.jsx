@@ -27,7 +27,7 @@ export default function Topbar() {
                     <ul>
                         {links.map((link) => (
                             <li key={link.href} 
-                                className={`text-[rgba(var(--color-fg),0.6)] relative overflow-hidden font-semibold mb-2  rounded-lg outline-[rgb(var(--color-border))] hover:outline-1 ${pathname === link.href ? "bg-gradient-to-r from-[rgba(var(--secondary-color),0.5)] via-[rgb(var(--color-bg))] to-[rgb(var(--color-bg))] outline-1 text-[rgba(var(--color-fg),1)] before:content before:absolute before:rounded-lg before:left-[-98%] before:w-full before:h-[80%] before:top-[10%] before:bg-[rgb(var(--secondary-color))] before:z-20" : ''}`}>
+                                className={`text-[rgba(var(--color-fg),0.6)] relative overflow-hidden font-semibold mb-2  rounded-lg outline-[rgb(var(--color-border))] hover:outline-1 ${pathname === link.href ? "shadow-lg/15 bg-gradient-to-r from-[rgba(var(--secondary-color),0.5)] via-[rgb(var(--color-bg))] to-[rgb(var(--color-bg))] outline-1 text-[rgba(var(--color-fg),1)] before:content before:absolute before:rounded-lg before:left-[-98%] before:w-full before:h-[80%] before:top-[10%] before:bg-[rgb(var(--secondary-color))] before:z-20" : ''}`}>
                                 <Link href={link.href} className="w-full flex px-3 py-2">{link.label}</Link>
                             </li>
                         ))}

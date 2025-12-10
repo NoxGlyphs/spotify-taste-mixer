@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import CollapseArrow from "../CollapseArrow";
 
 export default function DecadeWidget({ onSelect, selectedItems = [] }) {
   const decades = [
@@ -14,10 +15,9 @@ export default function DecadeWidget({ onSelect, selectedItems = [] }) {
   ];
 
   const [custom, setCustom] = useState({ start: "", end: "" });
-  const [query, setQuery] = useState("");
-  const filtered = decades.filter(d =>
-    d.label.toLowerCase().includes(query.toLowerCase())
-  );
+  const [focused, setFocused] = useState(true);
+
+  const collapseRef = useRef(null);
 
   function toggle(item) {
     const exists = selectedItems.some(
@@ -42,55 +42,66 @@ export default function DecadeWidget({ onSelect, selectedItems = [] }) {
 
   return (
     <div className="space-y-3">
-      <input
-        className="border p-2 w-full"
-        placeholder="Search decades..."
-        value={query}
-        onChange={e => setQuery(e.target.value)}
-      />
-
-      <div className="grid grid-cols-2 gap-2">
-        {filtered.map(d => (
-          <div
-            key={d.label}
-            className={`p-2 border rounded cursor-pointer ${
-              selectedItems.some(s => s.label === d.label) ? "bg-blue-200" : ""
-            }`}
-            onClick={() => toggle(d)}
-          >
-            {d.label}
-          </div>
-        ))}
+      <div className="flex items-center gap-2">
+        <CollapseArrow collapseRef={collapseRef} />
+        <h5 className="font-semibold pb-1">Select decades</h5>
       </div>
 
-      <div className="flex gap-2">
-        <input
-          type="number"
-          className="border p-2 w-full"
-          placeholder="Start year"
-          value={custom.start}
-          onChange={e => setCustom({ ...custom, start: e.target.value })}
-        />
-        <input
-          type="number"
-          className="border p-2 w-full"
-          placeholder="End year"
-          value={custom.end}
-          onChange={e => setCustom({ ...custom, end: e.target.value })}
-        />
-        <button className="border px-3 rounded" onClick={addCustom}>+</button>
-      </div>
+      <div className="ml-6">
+        <div
+          ref={collapseRef}
+          style={{ maxHeight: focused ? `${collapseRef.current?.scrollHeight}px` : "0px" }}
+          className="overflow-auto transition-[max-height] duration-300 ease-in-out grid grid-cols-2 gap-2"
+        >
+          {decades.map(d => (
+            <div
+              key={d.label}
+              className={`p-2 cursor-pointer border-2 rounded ${
+                selectedItems.some(s => s.label === d.label) ? "bg-blue-200" : ""
+              }`}
+              onClick={() => toggle(d)}
+            >
+              {d.label}
+            </div>
+          ))}
+          <div className="py-2" />
+        </div>
 
-      <div className="grid grid-cols-2 gap-2">
-        {selectedItems.map(i => (
-          <div
-            key={`${i.start}-${i.end}`}
-            className="p-2 border rounded cursor-pointer bg-blue-200"
-            onClick={() => toggle(i)}
-          >
-            {i.label}
-          </div>
-        ))}
+        <div className="flex gap-2 mt-2">
+          <input
+            type="number"
+            className="border p-2 w-40"
+            placeholder="Start year"
+            value={custom.start}
+            onChange={e => setCustom({ ...custom, start: e.target.value })}
+          />
+          <input
+            type="number"
+            className="border p-2 w-40"
+            placeholder="End year"
+            value={custom.end}
+            onChange={e => setCustom({ ...custom, end: e.target.value })}
+          />
+          <button className="border px-3 rounded" onClick={addCustom}>+</button>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 mt-2">
+          {selectedItems.map(i => (
+            <div
+              key={`${i.start}-${i.end}`}
+              className="p-2 flex items-center gap-2 pl-2 pr-2 border rounded bg-blue-200"
+              onClick={() => toggle(i)}
+            >
+              {i.label}
+              <span
+                onClick={() => toggle(i)}
+                className="text-sm ml-auto text-[rgba(var(--color-fg),0.3)] cursor-pointer"
+              >
+                Remove
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

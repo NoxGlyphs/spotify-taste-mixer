@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import ArtistWidget from "@/components/widgets/ArtistWidget";
 import TrackWidget from "@/components/widgets/TrackWidget";
 import GenreWidget from "@/components/widgets/GenreWidget";
@@ -8,6 +8,7 @@ import MoodWidget from "@/components/widgets/MoodWidget";
 import PopularityWidget from "@/components/widgets/PopularityWidget";
 import { generatePlaylist } from "@/lib/spotify";
 import NewPlaylist from "@/components/NewPlaylist";
+import CollapseArrow from "@/components/CollapseArrow";
 
 export default function TasteMixerPage() {
     const [showFilters, setShowFilters] = useState(true);
@@ -22,6 +23,8 @@ export default function TasteMixerPage() {
     const [generateLoading, setGenerateLoading] = useState(false);
     const [newPlaylist, setNewPlaylist] = useState(null);
     const [newPlaylistVisible, setNewPlaylistVisible] = useState(false);
+
+    const filtersRef = useRef(null);
 
     function updateFilter(key, value) {
         setFilters(prev => ({ ...prev, [key]: value }));
@@ -50,13 +53,12 @@ export default function TasteMixerPage() {
 
     return (
         <section>
-            <h2>Taste Mixer</h2>
-            <div>
+            <div  className="pt-4">
                 <div className="flex">
-                    <span>v</span>
-                    <h3>Filters</h3>
+                    <CollapseArrow collapseRef={filtersRef} />
+                    <h3 className="font-semibold pb-6">Filters</h3>
                 </div>
-                <div>
+                <div ref={filtersRef} className="flex flex-col gap-6 overflow-hidden ml-6 transition-max-height duration-300 ease-in-out pr-6">
                     <ArtistWidget
                         onSelect={handleArtistSelect}
                         selectedItems={filters.artists}
