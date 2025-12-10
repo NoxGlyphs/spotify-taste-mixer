@@ -2,6 +2,7 @@
 import { useState, useEffect, use } from "react";
 import { usePathname } from "next/navigation";
 import { spotifySecureFetch } from "@/lib/spotify";
+import Playlist from "@/components/SpotifyPlaylist";
 import Image from "next/image";
 
 export default function PlaylistPage() {
@@ -18,13 +19,6 @@ export default function PlaylistPage() {
     }, [id]);
 
     return (
-        <div>
-            <div className="flex">
-                <img alt="Playlist Image" width={200} height={200} 
-                    src={playlist?.images?.[0]?.url || "/default-playlist.png"}
-                />
-                <h1 className="font-bold text-4xl">{playlist.name}</h1>
-            </div>
-        </div>
+        <Playlist playlist={playlist} />
     );
 }

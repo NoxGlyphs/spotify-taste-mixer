@@ -1,16 +1,17 @@
 "use client";
 import { useState } from "react";
 
-export default function PopularityWidget({ onChange, value = 50 }) {
+export default function PopularityWidget({ onChange, value = [0, 100] }) {
   const [popularity, setPopularity] = useState(value);
 
   function handleCategory(cat) {
-    let val;
-    if (cat === "Mainstream") val = 90;
-    else if (cat === "Popular") val = 65;
-    else if (cat === "Underground") val = 25;
-    setPopularity(val);
-    onChange(val);
+    let range;
+    if (cat === "Mainstream") range = [80, 100];
+    else if (cat === "Popular") range = [50, 79];
+    else if (cat === "Underground") range = [0, 49];
+
+    setPopularity((range[0] + range[1]) / 2);
+    onChange(range);
   }
 
   return (
@@ -39,8 +40,11 @@ export default function PopularityWidget({ onChange, value = 50 }) {
         max="100"
         value={popularity}
         onChange={e => {
-          setPopularity(Number(e.target.value));
-          onChange(Number(e.target.value));
+          const val = Number(e.target.value);
+          setPopularity(val);
+          const min = Math.max(0, val - 10);
+          const max = Math.min(100, val + 10);
+          onChange([min, max]);
         }}
         className="w-full"
       />

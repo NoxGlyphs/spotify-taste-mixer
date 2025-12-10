@@ -22,7 +22,7 @@ const GENRES = [
   'work-out','world-music'
 ];
 
-export default function GenreWidget({ selected = [], onChange, limit = 5 }) {
+export default function GenreWidget({ selectedItems = [], onSelect, limit = 5 }) {
   const [query, setQuery] = useState("");
 
   const filtered = GENRES.filter(g =>
@@ -30,11 +30,11 @@ export default function GenreWidget({ selected = [], onChange, limit = 5 }) {
   );
 
   function toggle(g) {
-    if (selected.includes(g)) {
-      onChange(selected.filter(x => x !== g));
+    if (selectedItems.includes(g)) {
+      onSelect(selectedItems.filter(x => x !== g));
     } else {
-      if (selected.length >= limit) return;
-      onChange([...selected, g]);
+      if (selectedItems.length >= limit) return;
+      onSelect([...selectedItems, g]);
     }
   }
 
@@ -52,7 +52,7 @@ export default function GenreWidget({ selected = [], onChange, limit = 5 }) {
           <div
             key={g}
             className={`p-2 cursor-pointer ${
-              selected.includes(g) ? "bg-blue-200" : ""
+              selectedItems.includes(g) ? "bg-blue-200" : ""
             }`}
             onClick={() => toggle(g)}
           >
