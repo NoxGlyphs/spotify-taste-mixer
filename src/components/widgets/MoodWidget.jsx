@@ -48,7 +48,7 @@ export default function MoodWidget({ selectedItems = [], onSelect }) {
           style={{ maxHeight: focused ? `${collapseRef.current?.scrollHeight}px` : "0px" }}
           className="overflow-hidden transition-[max-height] duration-300 ease-in-out space-y-4"
         >
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {MOODS.map(m => (
               <div
                 key={m.id}

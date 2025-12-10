@@ -61,9 +61,9 @@ export default function GenreWidget({ selectedItems = [], onSelect, limit = 5 })
         {focused && (
           <div
             ref={resultsRef}
-            className="max-h-64 overflow-hidden grid grid-cols-5 gap-2 space-y-1 transition-max-height duration-300 ease-in-out"
+            className="max-h-64 overflow-hidden grid grid-cols-1 sm:grid-cols-4 gap-2 space-y-1 transition-max-height duration-300 ease-in-out"
           >
-            {filtered.slice(0,25).map(g => (
+            {filtered.slice(0,24).map(g => (
               <div
                 key={g}
                 className={`bg-[rgb(var(--color-bg))] p-2 cursor-pointer border-2 rounded text-center ${

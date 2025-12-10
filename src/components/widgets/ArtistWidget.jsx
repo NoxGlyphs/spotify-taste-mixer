@@ -51,7 +51,7 @@ export default function ArtistWidget({ onSelect, selectedItems = [] }) {
         {focused && (loading ? (
           <p>Loading...</p>
         ) : (
-          <div ref={resultsRef} className="grid grid-cols-2 gap-2 overflow-hidden transition-max-height duration-300 ease-in-out">
+          <div ref={resultsRef} className="grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-hidden transition-max-height duration-300 ease-in-out">
             {artists.map(artist => (
               <div
                 key={artist.id}

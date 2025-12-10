@@ -31,7 +31,7 @@ export default function PopularityWidget({ onChange, value = [0, 100] }) {
         style={{ maxHeight: focused ? `${collapseRef.current?.scrollHeight}px` : "0px" }}
         className="ml-6 overflow-hidden transition-[max-height] duration-300 ease-in-out space-y-4"
       >
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {["Mainstream", "Popular", "Underground"].map(cat => (
             <button
               key={cat}
@@ -49,7 +49,7 @@ export default function PopularityWidget({ onChange, value = [0, 100] }) {
           ))}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <label className="w-24">Popularity:</label>
           <input
             type="range"

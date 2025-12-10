@@ -51,7 +51,7 @@ export default function DecadeWidget({ onSelect, selectedItems = [] }) {
         <div
           ref={collapseRef}
           style={{ maxHeight: focused ? `${collapseRef.current?.scrollHeight}px` : "0px" }}
-          className="overflow-auto transition-[max-height] duration-300 ease-in-out grid grid-cols-2 gap-2"
+          className="overflow-auto transition-[max-height] duration-300 ease-in-out grid grid-cols-1 sm:grid-cols-2 gap-2"
         >
           {decades.map(d => (
             <div
@@ -67,7 +67,7 @@ export default function DecadeWidget({ onSelect, selectedItems = [] }) {
           <div className="py-2" />
         </div>
 
-        <div className="flex gap-2 mt-2">
+        <div className="flex flex-wrap gap-2 mt-2">
           <input
             type="number"
             className="bg-[rgb(var(--color-bg))]  border p-2 w-40"

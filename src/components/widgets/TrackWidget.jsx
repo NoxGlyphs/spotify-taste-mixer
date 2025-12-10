@@ -55,7 +55,7 @@ export default function TrackWidget({ onSelect, selectedItems = [] }) {
         ) : (
           <div
             ref={resultsRef}
-            className="grid grid-cols-2 gap-2 overflow-hidden transition-max-height duration-300 ease-in-out"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-hidden transition-max-height duration-300 ease-in-out"
           >
             {tracks.map(track => (
               <div
