@@ -43,8 +43,8 @@ export default function TrackList({ tracks, removeTrack = null, numerated = true
             console.log(track.track?.album?.images?.[0])
             
             return (
-                <li key={track.id} className="flex gap-2 items-center mt-4">
-                    <span className="min-w-[3ch] text-center text-[rgba(var(--color-fg),0.5)]">{numerated && (index + 1)}</span>
+                <li key={track.id} className=" block sm:flex gap-2 items-center mt-4 pb-6 sm:pb-0">
+                    <span className="hidden sm:flex min-w-[3ch] text-center text-[rgba(var(--color-fg),0.5)]">{numerated && (index + 1)}</span>
                     <img className="rounded" src={track.image || track.album?.images?.[0]?.url} alt="Portada" width={60} height={60}/>
                     
                     <div className="truncate">
