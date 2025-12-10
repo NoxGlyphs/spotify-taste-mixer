@@ -55,7 +55,7 @@ export default function GenreWidget({ selectedItems = [], onSelect, limit = 5 })
           value={query}
           onChange={e => setQuery(e.target.value)}
           onFocus={() => setFocused(true)}
-          className="border p-2 w-full mb-2 rounded-full px-6"
+          className="border p-2 w-full mb-2 rounded-full px-6 bg-[rgb(var(--color-bg))] "
         />
 
         {focused && (
@@ -66,7 +66,7 @@ export default function GenreWidget({ selectedItems = [], onSelect, limit = 5 })
             {filtered.slice(0,25).map(g => (
               <div
                 key={g}
-                className={`p-2 cursor-pointer border-2 rounded text-center ${
+                className={`bg-[rgb(var(--color-bg))] p-2 cursor-pointer border-2 rounded text-center ${
                   selectedItems.includes(g) ? "bg-blue-200" : ""
                 }`}
                 onClick={() => toggle(g)}

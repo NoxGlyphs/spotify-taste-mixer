@@ -12,13 +12,13 @@ export default function ArtistWidget({ onSelect, selectedItems = [] }) {
   const resultsRef = useRef(null);
 
   useEffect(() => {
-    if (!query) return 
+    if (!query) return;
     const timeout = setTimeout(async () => {
       setLoading(true);
       const data = await spotifySecureFetch(`search?type=artist&q=${encodeURIComponent(query)}`);
       setArtists(data.artists.items.slice(0, 6));
       setLoading(false);
-    }, 300); 
+    }, 300);
     return () => clearTimeout(timeout);
   }, [query]);
 
@@ -32,21 +32,21 @@ export default function ArtistWidget({ onSelect, selectedItems = [] }) {
   }
 
   return (
-    <div>
+    <div className="p-4 rounded-lg">
       <div className="flex">
         <CollapseArrow collapseRef={resultsRef} />
-        <h5 className="font-semibold pb-1">Select up to 5 artist</h5>
+        <h5 className="font-semibold pb-1">Select up to 5 artists</h5>
       </div>
 
       <div className="ml-6">
         <input
-            type="text"
-            placeholder="Search artists..."
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            onFocus={() => setFocused(true)}
-            className="border p-2 w-full mb-2 rounded-full px-6"
-          />
+          type="text"
+          placeholder="Search artists..."
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          onFocus={() => setFocused(true)}
+          className="border p-2 w-full mb-2 rounded-full px-6 bg-[rgb(var(--color-bg))]"
+        />
 
         {focused && (loading ? (
           <p>Loading...</p>
@@ -55,7 +55,7 @@ export default function ArtistWidget({ onSelect, selectedItems = [] }) {
             {artists.map(artist => (
               <div
                 key={artist.id}
-                className={`p-2 cursor-pointer border-2 rounded flex items-center gap-2 ${
+                className={`p-2 cursor-pointer border-2 rounded flex items-center gap-2 bg-[rgb(var(--color-bg))]  ${
                   selectedItems.some(a => a.id === artist.id) ? "bg-blue-200" : ""
                 }`}
                 onClick={() => handleClick(artist)}
@@ -70,18 +70,22 @@ export default function ArtistWidget({ onSelect, selectedItems = [] }) {
           </div>
         ))}
 
-        <div className="flex">
+        <div className="flex flex-wrap items-start">
           {selectedItems.map(artist => (
             <div
               key={artist.id}
-              className={`p-2 flex flex-col justify-center text-center items-center gap pl-6 pr-10`}
+              className="w-40 p-2 flex flex-col justify-center text-center items-center gap pl-6 pr-10"
             >
               {artist.images?.[0]?.url && (
                 <img src={artist.images[0].url} className="w-24 h-24 object-cover rounded-full" />
               )}
               <span className="mt-2 font-semibold">{artist.name}</span>
-              <span onClick={() => handleClick(artist)}
-              className="text-sm text-[rgba(var(--color-fg),0.3)] cursor-pointer">Remove</span>
+              <span
+                onClick={() => handleClick(artist)}
+                className="text-sm text-[rgba(var(--color-fg),0.3)] cursor-pointer"
+              >
+                Remove
+              </span>
             </div>
           ))}
         </div>

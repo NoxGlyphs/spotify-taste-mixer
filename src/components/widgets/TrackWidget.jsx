@@ -47,7 +47,7 @@ export default function TrackWidget({ onSelect, selectedItems = [] }) {
           value={query}
           onChange={e => setQuery(e.target.value)}
           onFocus={() => setFocused(true)}
-          className="border p-2 w-full mb-2 rounded-full px-6"
+          className="border p-2 w-full mb-2 rounded-full px-6 bg-[rgb(var(--color-bg))] "
         />
 
         {focused && (loading ? (
@@ -60,7 +60,7 @@ export default function TrackWidget({ onSelect, selectedItems = [] }) {
             {tracks.map(track => (
               <div
                 key={track.id}
-                className={`p-2 cursor-pointer border-2 rounded flex items-center gap-2 ${
+                className={`bg-[rgb(var(--color-bg))]  p-2 cursor-pointer border-2 rounded flex items-center gap-2 ${
                   selectedItems.some(t => t.id === track.id) ? "bg-blue-200" : ""
                 }`}
                 onClick={() => handleClick(track)}

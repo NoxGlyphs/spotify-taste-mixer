@@ -13,13 +13,14 @@ const links = [
 export default function Topbar() {
     const pathname = usePathname();
 
+    // md=740px aprox, que es cuando el sidebar se oculta
     return (
-        <section className="p-6 relative  h-full  overflow-hidden border-r-2 border-[rgb(var(--color-border))]">
-            <div className= {`absolute w-screen h-screen ${animations.spin} bg-[url('/bg-image.jpg')] bg-repeat bg-center  inset-0 z-2 blur-2xl left-1/2 -translate-x-1/2`}/>
+        <section className="p-6 min-w-max relative  h-full  overflow-hidden border-r-2 border-[rgb(var(--color-border))]">
+            <div className= {`absolute w-[1200px] h-[1200px] ${animations.spin} bg-[url('/bg-image.jpg')] bg-repeat bg-center  inset-0 z-2 blur-2xl left-1/2 -translate-x-1/2`}/>
             <div className={`absolute inset-0 bg-(--backdrop-color)  z-3`}/>
             
             <div className="flex flex-col gap-4 z-10 relative h-full">
-                <h1 className="relative rigth-0 text-4xl font-bold text-center w-max" >Spotify<br/>taste mixer</h1>
+                <h1 className="relative rigth-0 text-4xl font-extrabold text-center w-max" >Spotify<br/>taste mixer</h1>
                 <div className="border-t border-[rgba(var(--color-fg),0.3)] "/>
                 <AccountManager />
                 <div className="border-t border-[rgba(var(--color-fg),0.3)] mb-3"/>
@@ -34,8 +35,7 @@ export default function Topbar() {
                     </ul>
                 </nav>
                 <div className="bottom-4 absolute">
-                    <p>mp3</p>
-                    <p>Reproductor de current song</p>
+
                 </div>
             </div>
         </section>

@@ -56,7 +56,7 @@ export default function DecadeWidget({ onSelect, selectedItems = [] }) {
           {decades.map(d => (
             <div
               key={d.label}
-              className={`p-2 cursor-pointer border-2 rounded ${
+              className={`bg-[rgb(var(--color-bg))]  p-2 cursor-pointer border-2 rounded ${
                 selectedItems.some(s => s.label === d.label) ? "bg-blue-200" : ""
               }`}
               onClick={() => toggle(d)}
@@ -70,29 +70,29 @@ export default function DecadeWidget({ onSelect, selectedItems = [] }) {
         <div className="flex gap-2 mt-2">
           <input
             type="number"
-            className="border p-2 w-40"
+            className="bg-[rgb(var(--color-bg))]  border p-2 w-40"
             placeholder="Start year"
             value={custom.start}
             onChange={e => setCustom({ ...custom, start: e.target.value })}
           />
           <input
             type="number"
-            className="border p-2 w-40"
+            className="bg-[rgb(var(--color-bg))]  border p-2 w-40"
             placeholder="End year"
             value={custom.end}
             onChange={e => setCustom({ ...custom, end: e.target.value })}
           />
-          <button className="border px-3 rounded" onClick={addCustom}>+</button>
+          <button className=" bg-[rgb(var(--color-bg))]  border px-3 rounded" onClick={addCustom}>+</button>
         </div>
 
         <div className="grid grid-cols-2 gap-2 mt-2">
           {selectedItems.map(i => (
             <div
               key={`${i.start}-${i.end}`}
-              className="p-2 flex items-center gap-2 pl-2 pr-2 border rounded bg-blue-200"
-              onClick={() => toggle(i)}
+              className="p-2 flex items-center gap-2 pl-2 pr-2 "
             >
               {i.label}
+              <div className="border-t border-[rgba(var(--color-border),0.6)] grow"/>
               <span
                 onClick={() => toggle(i)}
                 className="text-sm ml-auto text-[rgba(var(--color-fg),0.3)] cursor-pointer"

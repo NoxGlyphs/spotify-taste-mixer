@@ -7,6 +7,6 @@ export default function TitleURL() {
     title = title.charAt(0).toUpperCase() + title.slice(1).replace("-", " ")
 
     return (
-        <h3 className="text-2xl font-bold">{title}</h3>
+        <h3 className="hidden md:inline text-2xl font-bold">{title}</h3>
     )
 }

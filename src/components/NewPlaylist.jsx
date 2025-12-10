@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react"
 import { spotifySecureFetch } from "@/lib/spotify";
 import TrackList from "./lists/TrackList";
+import Logo from "./Logo";
 
 export default function NewPlaylist({playlist}) {
     const inputRef = useRef(null);
@@ -57,13 +58,22 @@ export default function NewPlaylist({playlist}) {
 
     return (
         <div>
-            <input type="text" 
-                defaultValue="Taste Mix" 
-                className="border p-2 w-full mb-4" 
-                ref={inputRef}
-            />
+            <div className="flex items-center  pb-6">
+                <h3 className="font-semibold text-2xl pr-2 py-2">Title:</h3>
+                <input type="text" 
+                    defaultValue="Taste Mix" 
+                    className="bg-[rgb(var(--color-bg))]  border p-2 w-fit font-semibold text-2xl rounded" 
+                    ref={inputRef}
+                />
+                <div className="fixed right-10 bottom-10 flex items-center cursor-pointer w-fit rounded-full border-3 py-2 px-4 bg-[rgb(var(--color-bg))] z-9999" onClick={handleSaveInSpotify}>
+                    <h4 className="font-bold text-2xl mr-2">Save in Spotify</h4>
+                    <Logo />
+                </div>
+            </div>
+
+            
             <TrackList tracks={tracks} removeTrack={removeTrack} />
-            <h4 onClick={handleSaveInSpotify}>Save in Spotify</h4>
+            <div className="py-15"/>
         </div>
     )
 }
