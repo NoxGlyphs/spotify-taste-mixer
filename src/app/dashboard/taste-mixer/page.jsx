@@ -58,49 +58,36 @@ export default function TasteMixerPage() {
                     <h3 className="font-semibold pb-6">Filters</h3>
                 </div>
                 <div ref={filtersRef} className="flex flex-col gap-6 overflow-hidden ml-6 transition-max-height duration-300 ease-in-out pr-6">
-                    <ArtistWidget
-                        className="bg-[rgb(var(--color-bg))] p-4 rounded-lg"
-                        onSelect={handleArtistSelect}
-                        selectedItems={filters.artists}
-                    />
-                    <TrackWidget
-                        className="bg-[rgb(var(--color-bg))] p-4 rounded-lg"
-                        onSelect={handleTrackSelect}
-                        selectedItems={filters.tracks}
-                    />
-                    <GenreWidget
-                        className="bg-[rgb(var(--color-bg))] p-4 rounded-lg"
-                        onSelect={handleGenreSelect}
-                        selectedItems={filters.genres}
-                    />
-                    <DecadeWidget
-                        className="bg-[rgb(var(--color-bg))] p-4 rounded-lg"
-                        onSelect={handleDecadeSelect}
-                        selectedItems={filters.decades}
-                    />
-                    <MoodWidget
-                        className="bg-[rgb(var(--color-bg))] p-4 rounded-lg"
-                        onSelect={handleMoodSelect}
-                        selectedItems={filters.mood}
-                    />
-                    <PopularityWidget
-                        className="bg-[rgb(var(--color-bg))] p-4 rounded-lg"
-                        onChange={handlePopularityChange}
-                        value={filters.popularity}
-                    />
+                    <ArtistWidget onSelect={handleArtistSelect} selectedItems={filters.artists} />
+                    <TrackWidget onSelect={handleTrackSelect} selectedItems={filters.tracks} />
+                    <GenreWidget onSelect={handleGenreSelect} selectedItems={filters.genres} />
+                    <DecadeWidget onSelect={handleDecadeSelect} selectedItems={filters.decades} />
+                    <MoodWidget onSelect={handleMoodSelect} selectedItems={filters.mood} />
+                    <PopularityWidget onChange={handlePopularityChange} value={filters.popularity} />
                 </div>
             </div>
-            <button onClick={handleGenerate}
-                className="my-10 px-4 py-2 rounded-full border-2 border-[rgb(var(--color-fg))] bg-gradient-to-b from-[rgba(var(--secondary-color),0.3)] via-[rgba(var(--secondary-color),0.6)] to-[rgba(var(--secondary-color),0.4)] text-[rgb(var(--color-fg))] font-bold text-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer ">
-                Generate playlist
+
+            <button
+                onClick={handleGenerate}
+                className="my-10 px-4 py-2 rounded-full border-2 border-[rgb(var(--color-fg))] bg-gradient-to-b from-[rgba(var(--secondary-color),0.3)] via-[rgba(var(--secondary-color),0.6)] to-[rgba(var(--secondary-color),0.4)] text-[rgb(var(--color-fg))] font-bold text-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+                disabled={generateLoading}
+            >
+                {generateLoading ? "Generating..." : "Generate playlist"}
             </button>
 
-            {newPlaylistVisible && (
+            {generateLoading && (
+                <div className="flex items-center justify-center min-h-[100px] w-full">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+                </div>
+            )}
+
+            {newPlaylistVisible && !generateLoading && (
                 (newPlaylist?.length === 0) ? (
                     <p className="bg-[rgb(var(--color-bg))] p-4 rounded">No playlist generated. Try adjusting your filters.</p>
                 ) : (
                     <NewPlaylist playlist={newPlaylist} alreadyCreated={false} />
-            ))}
+                )
+            )}
         </section>
-    )
+    );
 }

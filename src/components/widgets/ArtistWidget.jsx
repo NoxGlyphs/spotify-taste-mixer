@@ -32,7 +32,7 @@ export default function ArtistWidget({ onSelect, selectedItems = [] }) {
   }
 
   return (
-    <div className="p-4 rounded-lg">
+    <div className=" rounded-lg">
       <div className="flex">
         <CollapseArrow collapseRef={resultsRef} />
         <h5 className="font-semibold pb-1">Select up to 5 artists</h5>
