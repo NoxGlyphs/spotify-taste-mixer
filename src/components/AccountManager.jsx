@@ -34,13 +34,16 @@ export default function AccountManager() {
 
   return (
     <div>
-      <button onClick={toggleMenu}>Profile</button>
-      <Image
-        src={profile?.images?.[1]?.url || "/default-pfp.jpg"}
-        alt="Profile Picture"
-        width={100}
-        height={100}
-      />
+      <div onClick={toggleMenu} className='flex items-center gap-3 cursor-pointer'>
+        <Image
+          src={profile?.images?.[1]?.url || "/default-pfp.jpg"}
+          alt="Profile Picture"
+          width={32}
+          height={32}
+          className='rounded-full'
+        />
+        <span className='text-xl font-semibold text-[rgba(var(--color-fg),0.8)]'>{profile?.display_name}</span>
+      </div>
       {isOpen && (
         <div
           className="fixed inset-0"

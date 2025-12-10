@@ -6,7 +6,6 @@ import TrackList from "./lists/TrackList";
 export default function NewPlaylist({playlist}) {
     const inputRef = useRef(null);
     const [tracks, setTracks] = useState([]);
-    console.log(playlist);
 
     // Permitir remover canciones específicas de la playlist
     const removeTrack = (trackId) => {

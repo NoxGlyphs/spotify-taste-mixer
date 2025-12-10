@@ -38,14 +38,15 @@ export default function TrackList({ tracks, removeTrack = null, numerated = true
         <ul>
           {tracks?.map((track, index) =>{ 
             const isFav = favorites.some(f => f.id === track.id);
+            console.log(track.track?.album?.images?.[0])
             
             return (
                 <li key={track.id} className="flex gap-2 items-center">
                     <span className="w-[3ch] text-center">{numerated && (index + 1)}</span>
-                    <img src={track.image} alt="Portada" width={40} height={40}/>
+                    <img src={track.image || track.album?.images?.[0]?.url} alt="Portada" width={40} height={40}/>
                     <span> {track.name} - {track.artists?.map(a => a.name).join(", ")}</span>
                     <span>{msToMinutesAndSeconds(track.duration_ms)}</span>
-                    <span onClick={()=>removeTrack(track.id)}> Remove </span>
+                    {removeTrack && <span onClick={()=>removeTrack(track.id)}> Remove </span>}
                     <span className={`relative right-0 cursor-pointer ${isFav ? 'text-yellow-400 font-bold' : ''}`}
                         onClick={() => toggleFavorite(track)}
                     >

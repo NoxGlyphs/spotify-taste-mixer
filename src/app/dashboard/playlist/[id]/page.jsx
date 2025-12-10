@@ -2,7 +2,7 @@
 import { useState, useEffect, use } from "react";
 import { usePathname } from "next/navigation";
 import { spotifySecureFetch } from "@/lib/spotify";
-import Playlist from "@/components/SpotifyPlaylist";
+import SpotifyPlaylist from "@/components/SpotifyPlaylist";
 import Image from "next/image";
 
 export default function PlaylistPage() {
@@ -19,6 +19,6 @@ export default function PlaylistPage() {
     }, [id]);
 
     return (
-        <Playlist playlist={playlist} />
+        <SpotifyPlaylist playlist={playlist} />
     );
 }

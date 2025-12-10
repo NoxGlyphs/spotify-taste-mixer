@@ -1,26 +1,32 @@
 "use client"
 import { useState, useEffect } from "react"
 import { spotifySecureFetch } from "@/lib/spotify"
-import ItemList from "@/components/ItemList"
+import PlaylistList from "@/components/lists/PlaylistList"
 
 
 export default function Library() {
-    const [filter, setFilter] = useState(null) // 'playlists', 'artists' o 'albums'
-    const [playlists, setPlaylists] = useState([])
-    const [artists, setArtists] = useState([])
-    const [albums, setAlbums] = useState([])
+    const [filter, setFilter] = useState(true) // true for owned, false for followed
+    const [ownedPlaylists, setOwnedPlaylists] = useState([])
+    const [followedPlaylists, setFollowedPlaylists] = useState([])
     
     useEffect(() => {
         async function fetchLibrary() {
+            const currentUser = await spotifySecureFetch('/me')
             const fetchedPlaylists = await spotifySecureFetch('/me/playlists', { params: { limit: 20 } })
-            setPlaylists(fetchedPlaylists.items)
+            
+            const owned = []
+            const followed = []
 
-            const fetchedArtists = await spotifySecureFetch('/me/following', { params: { type: 'artist' } })
-            setArtists(fetchedArtists.artists.items)
+            fetchedPlaylists?.items?.forEach(playlist => {
+                if (playlist.owner.id === currentUser.id) {
+                    owned.push(playlist)
+                } else {
+                    followed.push(playlist)
+                }
+            })
 
-            const fetchedAlbums = await spotifySecureFetch('/me/albums', { params: { limit: '20' } })
-            const procesedAlbums =  fetchedAlbums?.items.map(item => item.album)
-            setAlbums(procesedAlbums)
+            setOwnedPlaylists(owned)
+            setFollowedPlaylists(followed)
         }
 
         fetchLibrary()
@@ -28,22 +34,11 @@ export default function Library() {
 
     return (
         <div>
-            <h1>Library Component</h1>
-            <ItemList 
-                title="Playlists"
-                items={playlists} 
-                emptyMsg={"No playlists created yet"} 
-            />
-            <ItemList 
-                title="Artists"
-                items={artists} 
-                emptyMsg={"No artists followed yet"} 
-            />
-            <ItemList 
-                title="Albums"
-                items={albums} 
-                emptyMsg={"No albums saved yet"} 
-            />
+            <div className="flex gap-4">
+                <button onClick={()=>setFilter(true)}>My playlists</button>
+                <button onClick={()=>setFilter(false)}>Followed</button>
+            </div>
+            <PlaylistList items={filter ? ownedPlaylists : followedPlaylists} />
         </div>
     )
 }
