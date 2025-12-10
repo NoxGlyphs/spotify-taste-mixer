@@ -1,6 +1,7 @@
 "use client"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
 import AccountManager from "./AccountManager"
 import animations from "../styles/animations.module.css"
@@ -46,6 +47,16 @@ export default function Sidebar() {
                             ))}
                         </ul>
                     </nav>
+                    <div className="absolute bottom-4">
+                        <Image
+                            src="/cd.png"
+                            alt="CD Image"
+                            width={200}
+                            height={200}
+                            className={`mx-auto mt-10 opacity-30 ${animations.rotateY}`}
+                        />
+                    </div>
+
                 </div>
             </section>
 

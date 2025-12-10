@@ -41,7 +41,7 @@ export default function SearchTracksPage() {
       method: "POST",
       body: { uris: [trackUri] }
     })
-    alert("Añadido a tu playlist!")
+    alert("Added to playlist")
   }
 
   return (
@@ -67,7 +67,7 @@ export default function SearchTracksPage() {
         {tracks.map(track => (
           <div
             key={track.id}
-            className="flex items-center gap-2 border p-2 rounded"
+            className="flex items-center gap-2 border p-2 rounded bg-[rgb(var(--color-bg))]"
           >
             {track.album?.images?.[0]?.url && (
               <img

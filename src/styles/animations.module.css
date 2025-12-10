@@ -39,3 +39,20 @@
         transform: rotate(70deg);
     }
 }
+
+
+@keyframes rotateYAnimation {
+  0% {
+    transform: rotateY(0deg);
+  }
+  25% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+.rotateY {
+  animation: rotateYAnimation 10s linear infinite;
+}
