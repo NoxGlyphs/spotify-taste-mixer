@@ -22,7 +22,7 @@ export default function Home() {
   return (
       <div className='flex flex-col items-center h-screen bg-cover bg-center bg-no-repeat' 
         style={{ backgroundImage: "url('/frutiger.png')" }}>
-        <h1 className='mt-[40%] font-extrabold text-6xl text-center'>Spotify<br/>Taste Mixer</h1>
+        <h1 className='mt-[36vh] font-extrabold text-6xl text-center'>Spotify<br/>Taste Mixer</h1>
         <div className={`${styles.rainbowLogInButton} mt-5 relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100`}>
             <button className="px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-900/80 backdrop-blur"
               onClick={handleLogin}>
